@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 from selenium import webdriver
 
+
 def get_qotd():
     options = Options()
     options.headless = True
@@ -14,6 +15,8 @@ def get_qotd():
     s = soup.find('ol', id='result')
     driver.quit()
     return s.find('span', class_='support-sentence').text
+
+
 class QotdCommand(Command):
     def describe(self) -> str:
         return "🏓 Beep Command: Listen for a beep"

@@ -1,4 +1,5 @@
 import os
+import time
 
 import schedule
 from signalbot import SignalBot
@@ -28,11 +29,14 @@ def main():
 
     bot.register(BeepCommand())
     bot.register(QotdCommand())
-
-
     bot.start()
 
-    schedule.every(5).minutes.do(send_qotd(bot))
+    bot.send(internal_id, "I am aliveeeee", listen=True)
+    schedule.every(5).minutes.do(send_qotd, bot=bot)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 if __name__ == "__main__":
