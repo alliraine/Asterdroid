@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asterdroid
+  labels:
+    app: asterdroid
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: asterdroid
+  template:
+    metadata:
+      labels:
+        app: asterdroid
+    spec:
+      containers:
+      - name: signal-cli
+        image: bbernhard/signal-cli-rest-api
+        ports:
+        - containerPort: 8080
+        env:
+          - name: MODE
+            value: "json-rpc"

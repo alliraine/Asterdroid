@@ -7,6 +7,8 @@ class BeepCommand(Command):
     async def handle(self, c: Context):
         command = c.message.text
 
-        if command == "beep":
-            await c.send("boop")
+        if "beep" in command:
+            await c.react('🤖')
+            for x in range(command.count("beep")):
+                await c.send("boop")
             return

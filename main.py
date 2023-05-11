@@ -1,7 +1,8 @@
 import os
 from signalbot import SignalBot
 import logging
-from actions import BeepCommand
+from actions import BeepCommand, QotdCommand
+import chromedriver_autoinstaller
 
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("apscheduler").setLevel(logging.WARNING)
@@ -13,6 +14,8 @@ def main():
     group_id = os.environ["GROUP_ID"]
     internal_id = os.environ["GROUP_INTERNAL_ID"]
 
+    chromedriver_autoinstaller.install()
+
     config = {
         "signal_service": signal_service,
         "phone_number": phone_number,
@@ -23,6 +26,7 @@ def main():
     bot.listen(group_id, internal_id)
 
     bot.register(BeepCommand())
+    bot.register(QotdCommand())
 
 
     bot.start()
