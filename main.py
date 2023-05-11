@@ -1,13 +1,14 @@
 import os
+
+import schedule
 from signalbot import SignalBot
 import logging
 from actions import BeepCommand, QotdCommand
 import chromedriver_autoinstaller
+from tasks.send_qotd import send_qotd
 
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("apscheduler").setLevel(logging.WARNING)
-
-
 def main():
     signal_service = os.environ["SIGNAL_SERVICE"]
     phone_number = os.environ["PHONE_NUMBER"]
@@ -30,6 +31,8 @@ def main():
 
 
     bot.start()
+
+    schedule.every(5).minutes.do(send_qotd(bot))
 
 
 if __name__ == "__main__":
