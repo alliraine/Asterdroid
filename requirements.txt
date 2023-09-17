@@ -1,6 +1,8 @@
-signalbot~=0.6.0
-
-requests~=2.30.0
-selenium~=4.9.1
-beautifulsoup4~=4.12.2
-schedule~=1.2.0
+signalbot
+chromedriver_autoinstaller
+requests
+selenium
+beautifulsoup4
+schedule
+trivia.py
+openai

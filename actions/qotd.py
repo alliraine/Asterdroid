@@ -25,8 +25,10 @@ class QotdCommand(Command):
         command = c.message.text
 
         if command == "qotd":
+            await c.start_typing()
             print("command qotd triggered")
             await c.react('🤖')
             qotd = get_qotd()
-            await c.send(f"❓QOTD: {qotd}")
+            await c.reply(f"❓QOTD: {qotd}")
+            await c.stop_typing()
             return
