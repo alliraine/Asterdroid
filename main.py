@@ -4,7 +4,7 @@ import time
 import schedule
 from signalbot import SignalBot
 import logging
-from actions import BeepCommand, QotdCommand, TriviaCommand, AsterCommand
+from actions import BeepCommand, QotdCommand, AsterCommand
 from tasks.send_qotd import send_qotd
 
 logging.getLogger().setLevel(logging.INFO)
@@ -25,7 +25,6 @@ def main():
 
     bot.register(BeepCommand())
     bot.register(QotdCommand())
-    bot.register(TriviaCommand())
     bot.register(AsterCommand())
     bot.start()
 

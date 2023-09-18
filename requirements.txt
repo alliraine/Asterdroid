@@ -1,8 +1,6 @@
 signalbot
-chromedriver_autoinstaller
 requests
 selenium
 beautifulsoup4
 schedule
-trivia.py
 openai
