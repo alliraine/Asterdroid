@@ -1,32 +1,29 @@
-from selenium.webdriver.chrome.options import Options
-from signalbot import Command, Context
-from bs4 import BeautifulSoup
-import requests
-from selenium import webdriver
+from signalbot import Command, Context, triggered
 
 
 def get_qotd():
-    options = Options()
-    options.headless = True
-    driver = webdriver.Chrome(options=options)
-    driver.get('https://randomwordgenerator.com/question.php')
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    s = soup.find('ol', id='result')
-    driver.quit()
-    return s.find('span', class_='support-sentence').text
+    file = open("data/random_questions.csv", "r")
+    questions = file.read()
+    question_list = questions.split('\n')
+
+    question = question_list[0]
+
+    with open('data/random_questions.csv', 'w') as fp:
+        fp.write('\n'.join(question_list[1:]))
+
+    return question
 
 
 class QotdCommand(Command):
     def describe(self) -> str:
         return "🏓 Beep Command: Listen for a beep"
 
+    @triggered("qotd")
     async def handle(self, c: Context):
-        command = c.message.text
-
-        if command == "qotd":
-            print("command qotd triggered")
-            await c.react('🤖')
-            qotd = get_qotd()
-            await c.send(f"❓QOTD: {qotd}")
-            return
+        await c.start_typing()
+        print("command qotd triggered")
+        await c.react('🤖')
+        qotd = get_qotd()
+        await c.reply(f"❓QOTD: {qotd}")
+        await c.stop_typing()
+        return
